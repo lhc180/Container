@@ -24,7 +24,5 @@ RUN \
     	mkdir -p /hdfs/datanode && \
     	mkdir $HADOOP_HOME/logs 
 
-EXPOSE 8033 8088 8030 8031 8032 9000 50070
-
 ENTRYPOINT [ "/entrypoint.sh"]
 

@@ -1,4 +1,4 @@
-all: build build_tag push
+all: build 
 build: build_ubuntu build_jdk build_hadoop build_hive
 
 build_ubuntu:
@@ -9,3 +9,4 @@ build_hadoop:
 	docker build -t taylor840326/hadoop:2.7.7 -f hadoop/Dockerfile hadoop
 build_hive:
 	docker build -t taylor840326/hive:2.3.6 -f hive/Dockerfile hive
+

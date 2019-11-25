@@ -25,8 +25,8 @@ file_env "MYSQL_PORT" 3306
 file_env "MYSQL_USER" "root"
 file_env "MYSQL_PASSWORD" "111111"
 file_env "HOSTNAME" `uname -n`
-file_env "HDFS_HOSTNAME" "hdfs01"
-file_env "HDFS_ADDR" "127.0.0.1"
+#file_env "HDFS_HOSTNAME" "hdfs01"
+#file_env "HDFS_ADDR" "127.0.0.1"
 
 if [ ! -f $HIVE_HOME/conf/hive-log4j.properties ]
 then
@@ -38,7 +38,7 @@ sed -i "s@root@$MYSQL_USER@g" $HIVE_HOME/conf/hive-site.xml
 sed -i "s@123456@$MYSQL_PASSWORD@g" $HIVE_HOME/conf/hive-site.xml
 sed -i "s@node03.kaikeba.com@$HOSTNAME@g" $HIVE_HOME/conf/hive-site.xml
 
-echo "$HDFS_ADDR $HDFS_HOSTNAME" >>/etc/hosts
+#echo "$HDFS_ADDR $HDFS_HOSTNAME" >>/etc/hosts
 
 
 $HIVE_HOME/bin/schematool -initSchema -dbType mysql
