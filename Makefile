@@ -9,4 +9,3 @@ build_hadoop:
 	docker build -t taylor840326/hadoop:2.7.7 -f hadoop/Dockerfile hadoop
 build_hive:
 	docker build -t taylor840326/hive:2.3.6 -f hive/Dockerfile hive
-
