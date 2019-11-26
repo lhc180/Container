@@ -57,3 +57,4 @@ hive需要依赖HADOOP_HOME环境变量，并且需要调用HADOOP_HOME环境变
 
 
 
+
