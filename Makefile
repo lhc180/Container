@@ -5,7 +5,9 @@ build_ubuntu:
 	docker build -t taylor840326/ubuntu:18.04_aliyun -f Ubuntu/Dockerfile Ubuntu
 build_jdk:
 	docker build -t taylor840326/jdk:8 -f JDK/Dockerfile JDK
+build_zookeeper:
+	docker build -t taylor840326/zookeeper:3.5.6 -f Zookeeper/Dockerfile Zookeeper
 build_hadoop:
-	docker build -t taylor840326/hadoop:2.7.7 -f hadoop/Dockerfile hadoop
+	docker build -t taylor840326/hadoop:2.7.7 -f Hadoop/Dockerfile Hadoop
 build_hive:
-	docker build -t taylor840326/hive:2.3.6 -f hive/Dockerfile hive
+	docker build -t taylor840326/hive:2.3.6 -f Hive/Dockerfile Hive
