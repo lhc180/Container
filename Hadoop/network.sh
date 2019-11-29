@@ -12,12 +12,12 @@ function destroy_network() {
 }
 
 case "$1" in
-	"create_network")
+	"start")
 		create_network
 		;;
-	"create_resourcemanager")
+	"stop")
 		create_yarn_resourcemanager
 		;;
 	*)
-		echo "Usage: $@ [create_network|destroy_network]"
+		echo "Usage: $@ [start|stop]"
 esac
