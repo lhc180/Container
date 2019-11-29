@@ -7,19 +7,21 @@ do
 		1)
 		docker run \
 			--name spark01 \
-			--network hdfs \
+			--network apache_network \
 			--hostname spark01 \
 			--restart always \
 			-v /opt/spark-2.3.4-bin-hadoop2.7 \
+			--volumes-from namenode01 \
 			-d taylor840326/spark:2.3.4  master
 		;;
 		*)
 		docker run \
 			--name spark0$i \
-			--network hdfs \
+			--network apache_network \
 			--hostname spark0$i \
 			--restart always \
 			--volumes-from spark01 \
+			--volumes-from namenode01 \
 			-d taylor840326/spark:2.3.4 worker
 	esac
 done
