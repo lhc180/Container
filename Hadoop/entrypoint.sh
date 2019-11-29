@@ -21,32 +21,46 @@ file_env() {
 
 
 file_env "HOSTNAME" `uname -n`
+file_env "RESOURCEMANAGER_ADDR" "127.0.0.1"
+file_env "NAMENODE_NAME" "namenode01"
 IP=`ip addr show dev eth0|grep inet|awk '{print $2}'|awk -F'/' '{print $1}'`
 
-sed -i "s@\(^export JAVA_HOME=\).*@\1$JAVA_HOME@g" $HADOOP_HOME/etc/hadoop/hadoop-env.sh
-sed -i "s@hadoop-master@$IP@g" $HADOOP_HOME/etc/hadoop/core-site.xml
-sed -i "s@hadoop-master@$IP@g" $HADOOP_HOME/etc/hadoop/yarn-site.xml
-echo "$IP" >>$HADOOP_HOME/etc/hadoop/slaves
+
 
 
 case $1 in
+	"resourcemanager")
+		sed -i "s@hadoop-master@$IP@g" $HADOOP_HOME/etc/hadoop/yarn-site.xml
+		$HADOOP_HOME/bin/yarn --config $HADOOP_HOME/etc/hadoop resourcemanager 
+		;;
 	"namenode")
-		echo "yarn & namenode"
+		sed -i "s@\(^export JAVA_HOME=\).*@\1$JAVA_HOME@g" $HADOOP_HOME/etc/hadoop/hadoop-env.sh
+		sed -i -e "s@hadoop-master@$IP@g" $HADOOP_HOME/etc/hadoop/core-site.xml
+		sed -i -e "s@namenode01@$IP@g" $HADOOP_HOME/etc/hadoop/hdfs-site.xml
+		sed -i "s@hadoop-master@$RESOURCEMANAGER_ADDR@g" $HADOOP_HOME/etc/hadoop/yarn-site.xml
+
 		if [ ! -d /hdfs/namenode/current ];then
 			$HADOOP_HOME/bin/hdfs --config $HADOOP_HOME/etc/hadoop namenode -format
-			$HADOOP_HOME/bin/yarn --config $HADOOP_HOME/etc/hadoop resourcemanager &
+			$HADOOP_HOME/bin/yarn --config $HADOOP_HOME/etc/hadoop nodemanager  &
 			$HADOOP_HOME/bin/hdfs --config $HADOOP_HOME/etc/hadoop namenode 
 		else
-			$HADOOP_HOME/bin/yarn --config $HADOOP_HOME/etc/hadoop resourcemanager &
+			$HADOOP_HOME/bin/yarn --config $HADOOP_HOME/etc/hadoop nodemanager  &
 			$HADOOP_HOME/bin/hdfs --config $HADOOP_HOME/etc/hadoop namenode  
 		fi
 		;;
 	"datanode")
-		echo "datanode"
-			$HADOOP_HOME/bin/yarn --config $HADOOP_HOME/etc/hadoop nodemanager &
-			$HADOOP_HOME/bin/hdfs --config $HADOOP_HOME/etc/hadoop datanode  
+		if [ -f /opt/hadoop-2.7.7/etc/hadoop/core-site.xml ];then
+			file_env NAMENODE_IP `cat /opt/hadoop-2.7.7/etc/hadoop/core-site.xml |egrep -o "[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}"`
+		fi
+		echo "$NAMENODE_IP $NAMENODE_NAME" >>/etc/hosts
+
+		$HADOOP_HOME/bin/yarn --config $HADOOP_HOME/etc/hadoop nodemanager  &
+		$HADOOP_HOME/bin/hdfs --config $HADOOP_HOME/etc/hadoop datanode 
+		;;
+	"shell")
+		/bin/bash
 		;;
 	*)
-		echo "hehe"
+		echo "$@ [resourcemanager|namenode|datanode]"
 esac
 

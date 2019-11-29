@@ -1,6 +1,20 @@
 <?xml version="1.0"?>
 <configuration>
     <property>
+        <name>dfs.namenode.rpc-address.hdfs01.namenode01</name>
+        <value>namenode01:8020</value>
+    </property>
+    <property>
+        <name>dfs.namenode.http-address.hdfs01.namenode01</name>
+        <value>namenode01:50070</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.datanode.registration.ip-hostname-check</name>
+        <value>false</value>
+    </property>
+
+    <property>
         <name>dfs.namenode.name.dir</name>
         <value>file:///hdfs/namenode</value>
         <description>NameNode directory for namespace and transaction logs storage.</description>

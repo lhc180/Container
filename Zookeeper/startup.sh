@@ -6,7 +6,9 @@ do
 			"1")
 		docker run \
 			--name zookeeper0$i \
-			--network hdfs \
+			--cpus 2 \
+			-m 2147483648 \
+			--network apache_network \
 			--hostname zookeeper0$i \
 			--restart always \
 			-v /opt/apache-zookeeper-3.5.6-bin \
@@ -17,7 +19,9 @@ do
 			*)
 		docker run \
 			--name zookeeper0$i \
-			--network hdfs \
+			--cpus 2 \
+			-m 2147483648 \
+			--network apache_network \
 			--hostname zookeeper0$i \
 			--restart always \
 			--volumes-from zookeeper01 \
