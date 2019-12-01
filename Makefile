@@ -13,3 +13,5 @@ build_hive:
 	docker build -t taylor840326/hive:2.3.6 -f Hive/Dockerfile Hive
 build_spark:
 	docker build -t taylor840326/spark:2.3.4 -f Spark/Dockerfile Spark
+build_mysql:
+	docker build -t taylor840326/mysql:5.7	-f MySQL/Dockerfile MySQL
