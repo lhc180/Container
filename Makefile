@@ -15,3 +15,5 @@ build_spark:
 	docker build -t taylor840326/spark:2.3.4 -f Spark/Dockerfile Spark
 build_mysql:
 	docker build -t taylor840326/mysql:5.7	-f MySQL/Dockerfile MySQL
+build_kafka:
+	docker build -t taylor840326/kafka:2.3.1 -f Kafka/Dockerfile Kafka

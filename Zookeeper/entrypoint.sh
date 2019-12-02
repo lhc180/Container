@@ -21,7 +21,7 @@ file_env() {
 
 
 file_env "HOSTNAME" `uname -n`
-file_env "ID" "0"
+file_env "ID" "1"
 file_env "ZOOKEEPER_HOME" "/opt/apache-zookeeper-3.5.6-bin"
 IP=`ip addr show dev eth0|grep inet|awk '{print $2}'|awk -F'/' '{print $1}'`
 
@@ -34,8 +34,10 @@ case "$ID" in
 	"1")
 		echo "dataDir=/zookeeper/data" >$ZOOKEEPER_HOME/conf/zoo.cfg
 		echo "initLimit=10" >>$ZOOKEEPER_HOME/conf/zoo.cfg
+		echo "syncLimit=5" >>$ZOOKEEPER_HOME/conf/zoo.cfg
+		echo "clientPort=2181" >>$ZOOKEEPER_HOME/conf/zoo.cfg
 		echo "server.$ID=$IP:2888:3888" >>$ZOOKEEPER_HOME/conf/zoo.cfg
-		echo "0" >/zookeeper/data/myid
+		echo "1" >/zookeeper/data/myid
 		;;
 	*)
 		echo "server.$ID=$IP:2888:3888" >>$ZOOKEEPER_HOME/conf/zoo.cfg
