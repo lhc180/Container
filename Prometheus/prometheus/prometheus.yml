@@ -27,4 +27,4 @@ scrape_configs:
     file_sd_configs:
       - files:
         - /prometheus/file_sd/*.json
-        refresh_interval: 10s
+        refresh_interval: 30s
