@@ -28,3 +28,6 @@ scrape_configs:
       - files:
         - /prometheus/file_sd/*.json
         refresh_interval: 30s
+
+remote_write:
+  - url: "http://172.18.8.250:9080/receive"
