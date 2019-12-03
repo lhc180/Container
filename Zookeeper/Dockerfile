@@ -6,6 +6,7 @@ RUN \
 	tar xf apache-zookeeper-3.5.6-bin.tar.gz && \
 	rm -f apache-zookeeper-3.5.6-bin.tar.gz 
 
+ADD zoo.cfg /opt/apache-zookeeper-3.5.6-bin/conf/
 ADD entrypoint.sh /
 ENV ZOOKEEPER_HOME /opt/apache-zookeeper-3.5.6-bin
 ENV PATH $ZOOKEEPER_HOME/bin:$PATH

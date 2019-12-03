@@ -30,19 +30,7 @@ if [ ! -d /zookeeper/data ];then
 fi
 
 
-case "$ID" in 
-	"1")
-		echo "dataDir=/zookeeper/data" >$ZOOKEEPER_HOME/conf/zoo.cfg
-		echo "initLimit=10" >>$ZOOKEEPER_HOME/conf/zoo.cfg
-		echo "syncLimit=5" >>$ZOOKEEPER_HOME/conf/zoo.cfg
-		echo "clientPort=2181" >>$ZOOKEEPER_HOME/conf/zoo.cfg
-		echo "server.$ID=$IP:2888:3888" >>$ZOOKEEPER_HOME/conf/zoo.cfg
-		echo "1" >/zookeeper/data/myid
-		;;
-	*)
-		echo "server.$ID=$IP:2888:3888" >>$ZOOKEEPER_HOME/conf/zoo.cfg
-		echo "$ID" >/zookeeper/data/myid
-esac
+echo "$ID" >/zookeeper/data/myid
 
 
 $ZOOKEEPER_HOME/bin/zkServer.sh --config $ZOOKEEPER_HOME/conf start
