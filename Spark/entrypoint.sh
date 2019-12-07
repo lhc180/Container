@@ -21,12 +21,15 @@ file_env() {
 
 
 file_env "HOSTNAME" `uname -n`
+file_env "NAMENODE_HOSTNAME" "namenode01"
+file_env "NAMENODE_ADDR" "127.0.0.1"
+echo "$NAMENODE_ADDR $NAMENODE_HOSTNAME" >>/etc/hosts
 IP=`ip addr show dev eth0|grep inet|awk '{print $2}'|awk -F'/' '{print $1}'`
 
 
 case "$1" in
 	"master")
-		echo -e "JAVA_HOME=$JAVA_HOME\nSPARK_HOME=$SPARK_HOME\nSPARK_MASTER_HOST=$IP\nSPARK_WORKER_CORES=2\nSPARK_WORKER_MEMORY=1G\nSPARK_LOG_DIR=$SPARK_HOME/logs\n" >$SPARK_HOME/conf/spark-env.sh
+		echo -e "JAVA_HOME=$JAVA_HOME\nSPARK_HOME=$SPARK_HOME\nSPARK_MASTER_HOST=$IP\nSPARK_WORKER_CORES=8\nSPARK_WORKER_MEMORY=8G\nSPARK_LOG_DIR=$SPARK_HOME/logs\n" >$SPARK_HOME/conf/spark-env.sh
 		sed -i "s@\`hostname -f\`@$IP@g" $SPARK_HOME/sbin/start-master.sh
 		$SPARK_HOME/sbin/spark-config.sh 
 		$SPARK_HOME/sbin/start-master.sh 
