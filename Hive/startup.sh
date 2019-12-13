@@ -14,7 +14,6 @@ case $1 in
 			-p 10000:10000 \
 			-p 10002:10002 \
 			-p 9083:9083 \
-			--volumes-from namenode01 \
 			-d taylor840326/hive:2.3.6
 		;;
 	"stop")

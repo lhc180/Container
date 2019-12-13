@@ -1,10 +1,4 @@
-FROM taylor840326/jdk:8
-
-ADD hive-site.xml /opt/apache-hive-2.3.6-bin/conf/
-ADD entrypoint.sh /
-
-ENV HIVE_HOME /opt/apache-hive-2.3.6-bin
-ENV PATH $PATH:$HIVE_HOME/bin
+FROM taylor840326/hadoop:2.7.7
 
 RUN \
 	apt -y install libmysql-java && \
@@ -17,5 +11,10 @@ RUN \
 	echo "export HADOOP_HOME=/opt/hadoop-2.7.7" >>hive-env.sh && \
 	echo "export HIVE_CONF_DIR=/opt/apache-hive-2.3.6-bin/conf" >>hive-env.sh 
 
+
+ENV HIVE_HOME=/opt/apache-hive-2.3.6-bin
+ENV HIVE_CONF_DIR=$HIVE_HOME/conf PATH=$PATH:$HIVE_HOME/bin
+
+ADD entrypoint.sh /
 
 ENTRYPOINT ["/entrypoint.sh"]

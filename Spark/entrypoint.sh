@@ -250,6 +250,7 @@ case $1 in
 		$HADOOP_HOME/bin/hdfs --config $HADOOP_CONF_DIR datanode  &
 
 		#启动Spark计算节点
+		echo -e "JAVA_HOME=$JAVA_HOME\nSPARK_HOME=$SPARK_HOME\nSPARK_MASTER_HOST=$IP\nSPARK_WORKER_CORES=8\nSPARK_WORKER_MEMORY=8G\nSPARK_LOG_DIR=$SPARK_HOME/logs\n" >$SPARK_CONF_DIR/spark-env.sh
 		$SPARK_HOME/sbin/spark-config.sh
 		$SPARK_HOME/sbin/start-slave.sh spark://$MASTER_IP:7077
 		find $SPARK_HOME/logs -name "spark*.out"|xargs -I {} tail -f {}
