@@ -5,7 +5,8 @@ case $1 in
 		docker run \
 			--name hive01 \
 			--restart always \
-			--network hdfs \
+			--hostname hive01 \
+			--network apache_network \
 			-e MYSQL_ADDR="172.18.7.184" \
 			-e MYSQL_PORT=3306 \
 			-e MYSQL_USER="root" \
