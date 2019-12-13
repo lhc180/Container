@@ -1,4 +1,4 @@
-FROM taylor840326/jdk:8
+FROM taylor840326/hadoop:2.7.7
 
 RUN \
 	apt -y install libmysql-java && \
@@ -10,8 +10,6 @@ RUN \
 
 ADD entrypoint.sh /
 ENV SPARK_HOME /opt/spark-2.3.4-bin-hadoop2.7
-ENV HADOOP_HOME=/opt/hadoop-2.7.7
-ENV HADOOP_CONF_DIR=/opt/hadoop-2.7.7/etc/hadoop
 ENV YARN_CONF_DIR=/opt/hadoop-2.7.7/etc/hadoop
 ENV PATH $SPARK_HOME/bin:$SPARK_HOME/sbin:$PATH
 
