@@ -19,12 +19,11 @@ case "$1" in
 			KAFKA_PORT=$((9092 +$i))
 			docker run \
 				--name kafka0$i \
-				--network apache_network \
-				--hostname kafka0$i \
+				--network host \
 				--restart always \
 				-e ID="$i" \
 				-e ZKURL="$ZK" \
-				-p $KAFKA_PORT:9092 \
+				-e KAFKA_PORT=$KAFKA_PORT \
 				-d taylor840326/kafka:2.3.1 cluster
 		done
 		;;

@@ -23,7 +23,7 @@ file_env() {
 file_env "HOSTNAME" `uname -n`
 file_env "ZKURL" "127.0.0.1:2181"
 file_env "ID" "0"
-IP=`ip addr show dev eth0|grep inet|awk '{print $2}'|awk -F'/' '{print $1}'`
+file_env "KAFKA_PORT" "9092"
 
 
 case "$1" in
@@ -33,7 +33,7 @@ case "$1" in
 		$KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties
 		;;
 	"cluster")
-		sed -i -e "s@\(^broker.id=\).*@\1$ID@g" -e "s@\(^zookeeper.connect=\).*@\1$ZKURL@g" $KAFKA_HOME/config/server.properties
+		sed -i -e "s@#listeners=PLAINTEXT://:9092@listeners=PLAINTEXT://:$KAFKA_PORT@g" -e "s@\(^broker.id=\).*@\1$ID@g" -e "s@\(^zookeeper.connect=\).*@\1$ZKURL@g" $KAFKA_HOME/config/server.properties
 		$KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties
 		;;
 	"shell")
