@@ -13,8 +13,6 @@ function create_namenode(){
 		--restart always \
 		--hostname "$NAMENODE_NAME"01 \
 		--network apache_network \
-		-p 9000:9000 \
-		-p 8042:8042 \
 		-d $IMGNAME $NAMENODE_NAME
 }
 
