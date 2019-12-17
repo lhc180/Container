@@ -199,6 +199,10 @@ EOF
         <name>yarn.resourcemanager.hostname</name>
         <value>hadoop-master</value>
     </property>
+    <property>
+        <name>yarn.resourcemanager.am.max-attempts</name>
+        <value>4</value>
+    </property>
 </configuration>
 EOF
 
