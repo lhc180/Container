@@ -1,6 +1,5 @@
 #!/bin/bash
 
-ZK=`docker ps|grep zookeeper|awk '{print $NF}'|xargs -I {} docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' {} |while read zk;do echo -n $zk":2181," ;done|sed 's@,$@@g'`
 
 
 case "$1" in
@@ -10,7 +9,7 @@ case "$1" in
 			--network apache_network \
 			--hostname kafkamanager01 \
 			--restart always \
-			-e ZK_HOSTS=$ZK \
+			-e ZK_HOSTS=192.168.99.251:2181,192.168.99.252:2181,192.168.99.253:2181 \
 			-e APPLICATION_SECRET="admin" \
 			-p 19000:9000 \
 			-d sheepkiller/kafka-manager:latest
